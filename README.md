@@ -85,7 +85,10 @@ sqlmap.py -u "http://dvwa.local/vulnerabilities/sqli_blind/" --data="id=1&Submit
 ```
 ![image](https://user-images.githubusercontent.com/53438664/205756897-01a9c86b-0c00-46b6-959b-33074863517b.png)
 
-В результате поиска выявлена уязвимость типа _boolean-based blind_ и _time-based blind_ у параметра `id`.
+В результате поиска выявлена уязвимость типа _boolean-based blind_ и _time-based blind_ у параметра `id`. 
+- **Boolean based Blind SQL Injection** - это техника инъекции, которая заставляет приложение возвращать различное содержимое в зависимости от логического результата (TRUE или FALSE) при запросе к реляционной базе данных.
+- **Time based Blind SQL Injection** - SQL-запросы, которые вынуждают базу данных ждать определенное время, прежде чем ответить. Время ответа укажет злоумышленнику, является ли результат запроса истинным или ложным.
+
 Получим список имеющихся баз данных с помощью команды:
 ```sh
 sqlmap.py -u "http://dvwa.local/vulnerabilities/sqli_blind/" --data="id=1&Submit=Submit" --cookie="PHPSESSID=99gsrgjfdlsn3qn29s5oc4c76f; security=medium" -p id --dbs
